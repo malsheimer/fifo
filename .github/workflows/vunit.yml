@@ -9,4 +9,4 @@ jobs:
       - name: Run VUnit tests
         uses: VUnit/vunit_action@master
         with:
-          run_file: chmod +x run.py; run.py
+          cmd: run.py
