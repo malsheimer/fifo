@@ -1,6 +1,11 @@
 name: Test Github Action
-on: [push, pull_request]
+
+on:
+  push:
+  pull_request:
+
 jobs:
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -10,3 +15,10 @@ jobs:
         uses: VUnit/vunit_action@v0.1.0
         with:
           run_file: run.py
+
+  container-job:
+    runs-on: ubuntu-latest
+    container: ghdl/vunit:mcode-master
+    steps:
+    - uses: actions/checkout@v2
+    - run: run.py
