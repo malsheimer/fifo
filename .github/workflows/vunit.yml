@@ -9,4 +9,4 @@ jobs:
       - name: Run VUnit tests
         uses: VUnit/vunit_action@master
         with:
-          cmd: run.py
+          cmd: sh -c "python3 run.py"
