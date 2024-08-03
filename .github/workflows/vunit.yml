@@ -21,4 +21,4 @@ jobs:
     container: ghdl/vunit:mcode-master
     steps:
     - uses: actions/checkout@v2
-    - run: run.py
+    - run: python3 run.py
