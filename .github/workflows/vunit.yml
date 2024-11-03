@@ -11,23 +11,24 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
+
       - name: Pre-pull Docker image for ghdl/vunit:llvm-master
         run: docker pull ghdl/vunit:llvm-master
+
       - name: Run VUnit tests
         uses: VUnit/vunit_action@master
         with:
-          #cmd: sh -c "python3 run.py -x report.xml"
-          #cmd: python3 run.py -o report.xml
-          cmd: python3 run.py
+          cmd: python3 run.py -o report.xml
           image: ghdl/vunit:llvm-master
           #args: python3 run.py
-      #- name: Publish Test Results
-      #  if: always()
-      #  uses: dorny/test-reporter@v1
-      #  with:
-      #    name: VUnit Tests
-      #    path: report.xml
-      #    reporter: junit
+
+      - name: Publish Test Results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: VUnit Tests
+          path: report.xml
+          reporter: junit
 
   container-job:
     runs-on: ubuntu-latest
