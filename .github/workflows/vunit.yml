@@ -22,11 +22,11 @@ jobs:
           image: ghdl/vunit:llvm-master
           #args: python3 run.py
 
-      - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v5
-        if: success() || failure() # always run even if the previous step fails
-        with:
-          report_paths: '*.xml'
+      #- name: Publish Test Report
+      #  uses: mikepenz/action-junit-report@v5
+      #  if: success() || failure() # always run even if the previous step fails
+      #  with:
+      #    report_paths: '*.xml'
 
   container-job:
     runs-on: ubuntu-latest
