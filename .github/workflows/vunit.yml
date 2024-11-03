@@ -16,7 +16,10 @@ jobs:
       - name: Run VUnit tests
         uses: VUnit/vunit_action@master
         with:
-          cmd: sh -c "python3 run.py" -x report.xml
+          #cmd: sh -c "python3 run.py -x report.xml"
+          #cmd: python3 run.py -o report.xml
+          cmd: python3 run.py
+          image: ghdl/vunit:llvm-master
           #args: python3 run.py
       #- name: Publish Test Results
       #  if: always()
