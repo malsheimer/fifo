@@ -12,7 +12,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v3
       - name: Run VUnit tests
-        uses: VUnit/vunit_action@v0.1.0
+        uses: VUnit/vunit_action@master
         with:
           #cmd: sh -c "python3 run.py" -x report.xml
           args: python3 run.py
