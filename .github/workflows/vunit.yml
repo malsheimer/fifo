@@ -28,6 +28,7 @@ jobs:
         with:
           report_paths: "**/test_output.xml"
           include_passed : true
+          annotateOnly : true
 
   container-job:
     runs-on: ubuntu-latest
