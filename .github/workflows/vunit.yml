@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v3
+      - name: Pre-pull Docker image for ghdl/vunit:mcode
+        run: docker pull ghdl/vunit:mcode
       - name: Run VUnit tests
         uses: VUnit/vunit_action@master
         with:
