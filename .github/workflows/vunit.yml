@@ -27,6 +27,7 @@ jobs:
         if: success() || failure() # always run even if the previous step fails
         with:
           report_paths: "**/test_output.xml"
+          include_passed : true
 
   container-job:
     runs-on: ubuntu-latest
