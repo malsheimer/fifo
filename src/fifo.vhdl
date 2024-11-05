@@ -1,50 +1,56 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity fifo is
-    generic (ELEM_NUM : positive := 4;  -- number of elements
-             ELEM_BITS : positive := 3); -- number of bits per element
+ENTITY fifo IS
+  GENERIC (
+    elem_num  : positive := 4; -- number of elements
+    elem_bits : positive := 3); -- number of bits per element
 
-    port    (wr, rd, clk : in std_logic;
-             elem_in : in std_logic_vector (ELEM_BITS-1 downto 0);
-             elem_out : out std_logic_vector (ELEM_BITS-1 downto 0));
-end fifo;
+  PORT (
+    wr       : IN    STD_LOGIC;
+    rd       : IN    STD_LOGIC;
+    clk      : IN    STD_LOGIC;
+    elem_in  : IN    STD_LOGIC_VECTOR(elem_bits - 1 DOWNTO 0);
+    elem_out : OUT   STD_LOGIC_VECTOR(elem_bits - 1 DOWNTO 0));
+END fifo;
 
 
-architecture arch of fifo is
-    type elem_array_type is array(ELEM_NUM-1 downto 0) of std_logic_vector (ELEM_BITS-1 downto 0);
-    signal elem_array : elem_array_type;
-    constant empty_elem : std_logic_vector (ELEM_BITS-1 downto 0) := (others =>'0') ;
-    signal u1 : unsigned (2 downto 0);
+ARCHITECTURE arch OF fifo IS
+  TYPE     elem_array_type IS array(elem_num - 1 DOWNTO 0) of STD_LOGIC_VECTOR(elem_bits - 1 DOWNTO 0);
+  SIGNAL   elem_array : elem_array_type;
+  CONSTANT empty_elem : STD_LOGIC_VECTOR(elem_bits - 1 DOWNTO 0) := (others => '0');
+  SIGNAL   u1         : UNSIGNED (2 DOWNTO 0);
 
-begin
+BEGIN
 
-    main_fifo : process(clk) is
-        variable counter : natural range 0 to ELEM_NUM := 0;
-        variable prev_rd : boolean  := false;
-    begin
-        if(rising_edge(clk)) then
-            if(prev_rd) then
-                elem_array <= empty_elem & elem_array(ELEM_NUM-1 downto 1);
-            end if;
+  main_fifo : PROCESS (clk) IS
+    -- vsg_off variable_007
+    VARIABLE counter : natural range 0 TO elem_num := 0;
+    VARIABLE prev_rd : boolean                     := false;
+  -- vsg_on variable_007
+  BEGIN
+    IF (rising_edge(clk)) THEN
+      IF (prev_rd) THEN
+        elem_array <= empty_elem & elem_array(elem_num - 1 DOWNTO 1);
+      END IF;
 
-            if(wr='1' and (counter /= ELEM_NUM)) then
-                elem_array(counter) <= elem_in;
-                counter := counter +1;
-            end if;
+      IF (wr = '1' AND (counter /= elem_num)) THEN
+        elem_array(counter) <= elem_in;
+        counter             := counter + 1;
+      END IF;
 
-            if(rd='1' and (counter /= 0)) then
-                counter := counter -1;
-                prev_rd:= true;
-            end if;
+      IF (rd = '1' AND (counter /= 0)) THEN
+        counter := counter - 1;
+        prev_rd := true;
+      END IF;
 
-            if(rd='0') then
-                prev_rd := false;
-            end if;
-        end if;
-    end process main_fifo;
+      IF (rd = '0') THEN
+        prev_rd := false;
+      END IF;
+    END IF;
+  END PROCESS main_fifo;
 
-    elem_out <= elem_array(0);
+  elem_out <= elem_array(0);
 
-end arch;
+END arch;

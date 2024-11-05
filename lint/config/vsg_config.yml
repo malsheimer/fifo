@@ -1,0 +1,84 @@
+# The name must be a single word
+name : sx
+# Define the rules for this style
+rule :
+  # global
+  global :
+    case : 'upper'
+    action : move_left
+    blank_line_ends_group : true
+    comment_line_ends_group : false
+    compact_alignment : true
+  # rule groups
+  group:
+     blank_line:
+       style : allow_comment
+     # rule subgroups (::)
+     case::keyword:
+       case: 'upper'
+     case::label:
+       case: 'lower'
+     case::name:
+       case: 'lower'
+  # rules
+  attribute_declaration_502 :
+    disable : true
+  case_007 :
+    disable : true
+  case_012 :
+    disable : true
+  case_201 :
+    disable : true
+    style : no_code
+    #style : no_blank_line
+    #style : allow_comment # default
+  conditional_waveforms_500:
+    case: 'upper'
+  conditional_waveforms_501:
+    case: 'upper'
+  comment_100 :
+    exceptions :
+      - '--!'
+      - '--*'
+      - '--/'
+      - '---'
+  constant_016 :
+    disable : true
+  context_ref_001 :
+    disable : true
+  entity_specification_503 :
+    disable : true
+  generate_004 :
+    disable : true
+  if_006 :
+    disable : true
+  if_007 :
+    disable : true
+  if_008 :
+    disable : true
+  if_031 :
+    disable : true
+  instantiation_004 :
+    disable : true
+  instantiation_033 :
+     action: 'remove'
+  instantiation_034:
+    method: 'entity'
+  library_007 :
+    disable : true
+  library_008 :
+    disable : true
+  loop_statement_200:
+    disable : true
+  loop_statement_201:
+    disable : true
+  loop_statement_202:
+    disable : true
+  process_035:
+    disable : true
+  record_type_definition_201:
+    style : no_blank_line
+  type_010:
+    disable : true
+  whitespace_200:
+     blank_lines_allowed: 3
