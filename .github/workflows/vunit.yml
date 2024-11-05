@@ -9,7 +9,7 @@ jobs:
   action:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Git repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Pre-pull Docker image for ghdl/vunit:llvm-master
@@ -30,16 +30,19 @@ jobs:
           include_passed : true
           annotate_only : true
 
-      - name: Upload sim results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: simulation-artifacts
-          path: "**/test_output.xml"
-
   container-job:
     runs-on: ubuntu-latest
     container: ghdl/vunit:mcode-master
     steps:
-    - uses: actions/checkout@v4
-    - run: python3 run.py
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run VUnit tests
+        run: python3 run.py --xunit-xml test_output.xml
+
+      - name: Upload simulation results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-artifacts
+          path: test_output.xml
