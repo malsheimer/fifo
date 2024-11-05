@@ -30,6 +30,13 @@ jobs:
           include_passed : true
           annotate_only : true
 
+      - name: Upload sim results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-artifacts
+          path: "**/test_output.xml"
+
   container-job:
     runs-on: ubuntu-latest
     container: ghdl/vunit:mcode-master
