@@ -41,7 +41,6 @@ jobs:
           #annotate_only : true
           check_annotations : true
           detailed_summary : true
-          annotate_notice : true
           check_name : VUnit Test Report (mikepenz)
 
   container-job:
