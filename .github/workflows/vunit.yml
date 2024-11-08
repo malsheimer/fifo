@@ -60,4 +60,4 @@ jobs:
         if: always()
         with:
           files: "**/*.xml"
-          check_name: VUnit Tests (EnricoMi)
+          check_name: VUnit Test Report (EnricoMi)

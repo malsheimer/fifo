@@ -67,7 +67,7 @@ BEGIN
         info("Test 2 passed");
 
       ELSIF run("test3") THEN
-        info("Test 3 passed");
+        error("Test 3 passed");
 
       END IF;
     END LOOP;
