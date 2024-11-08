@@ -32,17 +32,27 @@ jobs:
 
   container-job:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
     container: ghdl/vunit:mcode-master
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Run VUnit tests
-        run: python3 run.py --xunit-xml test_output.xml
+        run: python3 run.py --xunit-xml vunit_results.xml
 
       - name: Upload simulation results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: simulation-artifacts
-          path: test_output.xml
+          path: vunit_results.xml
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: "**/*.xml"
+          check_name: VUnit Tests
