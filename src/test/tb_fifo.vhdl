@@ -67,10 +67,7 @@ BEGIN
         info("Test 2 passed");
 
       ELSIF run("test3") THEN
-
-        ASSERT FALSE
-          REPORT "Test 3 failed"
-          SEVERITY FAILURE;
+        error("Test 3 failed");
 
       END IF;
     END LOOP;
