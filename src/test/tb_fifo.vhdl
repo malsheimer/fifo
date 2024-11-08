@@ -58,27 +58,24 @@ BEGIN
   BEGIN
     test_runner_setup(runner, runner_cfg);
 
-    wait until falling_edge(clk);
-    wr      <= '1';
-    rd      <= '0';
-    elem_in <= "001";
+    WHILE test_suite LOOP
 
-    wait until falling_edge(clk);
-    elem_in <= "010";
+      IF run("test1") THEN
+        info("Test 1 passed");
 
-    wait until falling_edge(clk);
-    wr <= '0';
-    rd <= '1';
+      ELSIF run("test2") THEN
+        info("Test 2 passed");
 
-    wait until falling_edge(clk);
-    ASSERT elem_out = "001"
-      REPORT "fail first read";
+      ELSIF run("test3") THEN
 
-    wait until falling_edge(clk);
-    ASSERT elem_out = "010"
-      REPORT "fail second read";
+        ASSERT FALSE
+          REPORT "Test 3 failed"
+          SEVERITY FAILURE;
 
-    test_runner_cleanup(runner); -- Simulation ends here
+      END IF;
+    END LOOP;
+
+    test_runner_cleanup(runner);
   END PROCESS tb;
 
 END behavioral;
