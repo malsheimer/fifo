@@ -8,6 +8,9 @@ jobs:
 
   action:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,7 +31,9 @@ jobs:
         with:
           report_paths: "**/test_output.xml"
           include_passed : true
-          annotate_only : true
+          #annotate_only : true
+          detailed_summary : true
+          check_name : VUnit Test Report (mikepenz)
 
   container-job:
     runs-on: ubuntu-latest
@@ -55,4 +60,4 @@ jobs:
         if: always()
         with:
           files: "**/*.xml"
-          #check_name: VUnit Tests
+          check_name: VUnit Tests (EnricoMi)
